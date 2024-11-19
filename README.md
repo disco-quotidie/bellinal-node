@@ -81,3 +81,55 @@ Your IBD (Initial Block Download) gets started. You can track current status wit
 bells-cli getblockchaininfo
 ```
 
+
+## Bellscoin Ord
+### Install dependencies
+```
+apt-get install pkg-config libssl-dev build-essential
+```
+
+### Install Rust
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+Relogin to user and verify Rust is installed
+```
+rustc --version
+```
+
+### Clone Bellscoin Ord repository
+```
+git clone https://github.com/Nintondo/ord.git
+```
+Replace RPC port on Ord repository (Deprecation issue)
+```
+vim ord/src/chains.rs
+```
+Replace 19918 to 8332 on default_rpc_port function
+
+### Build Rust Binary
+```
+cd ord
+cargo build --release
+cd target/release
+```
+
+### Install Latest NodeJS and PM2
+```
+sudo apt install -y ca-certificates curl gnupg
+sudo mkdir -p /etc/apt/keyrings
+sudo curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+sudo apt update -y 
+sudo apt install -y nodejs
+npm i -g pm2@latest
+```
+
+### Run Ord as service with PM2
+```
+pm2 start "./ord --bitcoin-rpc-username your-rpc-username --bitcoin-rpc-password your-rpc-password server" --name ord
+```
+
+### Verify Ord service running on port 3333
+http://ip:3333
