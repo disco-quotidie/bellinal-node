@@ -128,7 +128,7 @@ npm i -g pm2@latest
 
 ### Run Ord as service with PM2
 ```
-pm2 start "./ord --bitcoin-rpc-username your-rpc-username --bitcoin-rpc-password your-rpc-password server" --name ord
+pm2 start "./ord --bitcoin-rpc-username your-rpc-username --bitcoin-rpc-password your-rpc-password --index-addresses server" --name ord
 ```
 
 ### Verify Ord service running on port 3333
